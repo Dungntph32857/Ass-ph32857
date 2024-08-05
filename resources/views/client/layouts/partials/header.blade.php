@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="tech-index.html">Home</a>
+                    <a class="nav-link" href="{{route('/')}}">Home</a>
                 </li>
                 <li // new--------------------------------------------------------
                     class="nav-item dropdown has-submenu menu-large hidden-md-down hidden-sm-down hidden-xs-down">
@@ -21,171 +21,54 @@
                                 <div class="mega-menu-content clearfix">
                                     <div class="tab">
                                         {{--  ------------Danh Mục--------------  --}}
-                                        <button class="tablinks active"
-                                            onclick="openCategory(event, 'cat01')">Danh mục 1</button>
-                                        <button class="tablinks"
-                                            onclick="openCategory(event, 'cat02')">Danh mục 2</button>
+                                        @foreach ($categories as $category) 
+
+                                        {{--  <button class="tablinks active"
+                                            onclick="openCategory(event, 'cat01')">{{$category->name}}</button>  --}}
+                                            <button class="tablinks {{ isset($category_id) && $category_id == $category->id ? 'active' : '' }}"
+                                                onclick="openCategory(event, 'cat{{ $category->id }}', {{ $category->id }})">
+                                                    {{ $category->name }}
+                                            </button>
                                         
+
+                                        @endforeach
+
                                     </div>
 
                                     <div class="tab-details clearfix">
                                         {{--  ------Hiển thị Danh Mục Tương Ứng-----------  --}}
-                                        <div id="cat01" class="tabcontent active">
+                                        <div id='cat{{ $category->id }}', {{ $category->id }}' class="tabcontent active">
                                             <div class="row">
-                                                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="blog-box">
-                                                        <div class="post-media">
-                                                            <a href="tech-single.html" title="">
-                                                                <img src="/client/upload/tech_menu_01.jpg" alt=""
-                                                                    class="img-fluid">
-                                                                <div class="hovereffect">
-                                                                </div><!-- end hover -->
-                                                                <span class="menucat">Science</span>
-                                                            </a>
-                                                        </div><!-- end media -->
-                                                        <div class="blog-meta">
-                                                            <h4><a href="tech-single.html" title="">Top 10+
-                                                                    care advice for your toenails</a></h4>
-                                                        </div><!-- end meta -->
-                                                    </div><!-- end blog-box -->
-                                                </div>
+                                                @foreach ($posts->take(4) as $post)
+                                                    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                                                        <div class="blog-box">
+                                                            <div class="post-media">
+                                                                <a href="{{route('chi-tiet',$post)}}" title="">
+                                                                    <img src="{{asset($post->image)}}" alt=""
+                                                                        class="img-fluid">
+                                                                    <div class="hovereffect">
+                                                                    </div><!-- end hover -->
+                                                                    <span class="menucat">
+                                                                        @foreach ($post->tags as $tag)
+                                                                        <ul>
+                                                                          <li>Tag bài viết: {{$tag->name}} </li>
+                                                                        </ul>
+                                                                        @endforeach
+                                                                    </span>
+                                                                </a>
+                                                            </div><!-- end media -->
+                                                            <div class="blog-meta">
+                                                                <h4><a href="{{route('chi-tiet',$post)}}" title="">{{$post->title}}</a></h4>
+                                                            </div><!-- end meta -->
+                                                        </div><!-- end blog-box -->
+                                                    </div> 
+                                                @endforeach
+                                                
 
-                                                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="blog-box">
-                                                        <div class="post-media">
-                                                            <a href="tech-single.html" title="">
-                                                                <img src="/client/upload/tech_menu_02.jpg" alt=""
-                                                                    class="img-fluid">
-                                                                <div class="hovereffect">
-                                                                </div><!-- end hover -->
-                                                                <span class="menucat">Science</span>
-                                                            </a>
-                                                        </div><!-- end media -->
-                                                        <div class="blog-meta">
-                                                            <h4><a href="tech-single.html" title="">The
-                                                                    secret of your beauty is handmade
-                                                                    soap</a></h4>
-                                                        </div><!-- end meta -->
-                                                    </div><!-- end blog-box -->
-                                                </div>
-
-                                                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="blog-box">
-                                                        <div class="post-media">
-                                                            <a href="tech-single.html" title="">
-                                                                <img src="/client/upload/tech_menu_03.jpg" alt=""
-                                                                    class="img-fluid">
-                                                                <div class="hovereffect">
-                                                                </div><!-- end hover -->
-                                                                <span class="menucat">Science</span>
-                                                            </a>
-                                                        </div><!-- end media -->
-                                                        <div class="blog-meta">
-                                                            <h4><a href="tech-single.html" title="">Benefits
-                                                                    of face mask made from mud</a></h4>
-                                                        </div><!-- end meta -->
-                                                    </div><!-- end blog-box -->
-                                                </div>
-
-                                                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="blog-box">
-                                                        <div class="post-media">
-                                                            <a href="tech-single.html" title="">
-                                                                <img src="/client/upload/tech_menu_04.jpg" alt=""
-                                                                    class="img-fluid">
-                                                                <div class="hovereffect">
-                                                                </div><!-- end hover -->
-                                                                <span class="menucat">Science</span>
-                                                            </a>
-                                                        </div><!-- end media -->
-                                                        <div class="blog-meta">
-                                                            <h4><a href="tech-single.html" title="">Relax
-                                                                    with the unique warmth of candle
-                                                                    flavor</a></h4>
-                                                        </div><!-- end meta -->
-                                                    </div><!-- end blog-box -->
-                                                </div>
+                                
                                             </div><!-- end row -->
                                         </div>
-                                        <div id="cat02" class="tabcontent">
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="blog-box">
-                                                        <div class="post-media">
-                                                            <a href="tech-single.html" title="">
-                                                                <img src="/client/upload/tech_menu_05.jpg" alt=""
-                                                                    class="img-fluid">
-                                                                <div class="hovereffect">
-                                                                </div><!-- end hover -->
-                                                                <span class="menucat">Technology</span>
-                                                            </a>
-                                                        </div><!-- end media -->
-                                                        <div class="blog-meta">
-                                                            <h4><a href="tech-single.html" title="">2017
-                                                                    summer stamp will have design models
-                                                                    here</a></h4>
-                                                        </div><!-- end meta -->
-                                                    </div><!-- end blog-box -->
-                                                </div>
-
-                                                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="blog-box">
-                                                        <div class="post-media">
-                                                            <a href="tech-single.html" title="">
-                                                                <img src="/client/upload/tech_menu_06.jpg" alt=""
-                                                                    class="img-fluid">
-                                                                <div class="hovereffect">
-                                                                </div><!-- end hover -->
-                                                                <span class="menucat">Technology</span>
-                                                            </a>
-                                                        </div><!-- end media -->
-                                                        <div class="blog-meta">
-                                                            <h4><a href="tech-single.html" title="">Which
-                                                                    color is the most suitable color for
-                                                                    you?</a></h4>
-                                                        </div><!-- end meta -->
-                                                    </div><!-- end blog-box -->
-                                                </div>
-
-                                                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="blog-box">
-                                                        <div class="post-media">
-                                                            <a href="tech-single.html" title="">
-                                                                <img src="/client/upload/tech_menu_07.jpg" alt=""
-                                                                    class="img-fluid">
-                                                                <div class="hovereffect">
-                                                                </div><!-- end hover -->
-                                                                <span class="menucat">Technology</span>
-                                                            </a>
-                                                        </div><!-- end media -->
-                                                        <div class="blog-meta">
-                                                            <h4><a href="tech-single.html"
-                                                                    title="">Subscribe to these sites to
-                                                                    keep an eye on the fashion</a></h4>
-                                                        </div><!-- end meta -->
-                                                    </div><!-- end blog-box -->
-                                                </div>
-
-                                                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="blog-box">
-                                                        <div class="post-media">
-                                                            <a href="tech-single.html" title="">
-                                                                <img src="/client/upload/tech_menu_08.jpg" alt=""
-                                                                    class="img-fluid">
-                                                                <div class="hovereffect">
-                                                                </div><!-- end hover -->
-                                                                <span class="menucat">Technology</span>
-                                                            </a>
-                                                        </div><!-- end media -->
-                                                        <div class="blog-meta">
-                                                            <h4><a href="tech-single.html" title="">The most
-                                                                    trends of this year with color
-                                                                    combination</a></h4>
-                                                        </div><!-- end meta -->
-                                                    </div><!-- end blog-box -->
-                                                </div>
-                                            </div><!-- end row -->
-                                        </div>
+                                      
                                     </div><!-- end tab-details -->
                                 </div><!-- end mega-menu-content -->
                             </div>
@@ -213,9 +96,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fa fa-android"></i></a>
                 </li>
+                @if (Route::has('login'))
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa fa-apple"></i></a>
+                        @auth
+                            <form action="{{route('logout')}}" method="POST">
+                                @csrf
+                                <button class=" nav-link btn btn-primary" type="submit"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="nav-link" ><i class="fa fa-user-circle" aria-hidden="true"></i></a>
+                        @endauth
                 </li>
+                       
+                   
+                 @endif
             </ul>
         </div>
     </nav>

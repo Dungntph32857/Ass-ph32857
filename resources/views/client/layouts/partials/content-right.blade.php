@@ -3,12 +3,12 @@
         <div class="widget">
             <div class="banner-spot clearfix">
                 <div class="banner-img">
-                    <img src="/client/upload/banner_07.jpg" alt="" class="img-fluid">
+                    <img src="https://bdsweb.com.vn/upload_images/images/bbds/banner-bat-dong-san-doc-02.jpg" alt="" class="img-fluid">
                 </div><!-- end banner-img -->
             </div><!-- end banner -->
         </div><!-- end widget -->
 
-        <div class="widget">
+        {{--  <div class="widget">
             <h2 class="widget-title">Trend Videos</h2>
             <div class="trend-videos">
                 <div class="blog-box">
@@ -60,39 +60,32 @@
                     </div><!-- end meta -->
                 </div><!-- end blog-box -->
             </div><!-- end videos -->
-        </div><!-- end widget -->
+        </div><!-- end widget -->  --}}
 
         <div class="widget">
             <h2 class="widget-title">Popular Posts</h2>
-            <div class="blog-list-widget">
+            <select id="category-select" class="form-control"> 
+               @foreach ($categories as $category)
+                <option value="">All Categories</option>
+                <option value="{{$category->id}}"> {{ $category->name }}</option>   
+
+                @endforeach
+            </select>
+       
+            <div class="blog-list-widget mt-3" >
+                @foreach ($posts->take(4) as $post)
                 <div class="list-group">
-                    <a href="tech-single.html"
+                    <a href="{{route('chi-tiet',$post)}}"
                         class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="w-100 justify-content-between">
-                            <img src="/client/upload/tech_blog_08.jpg" alt="" class="img-fluid float-left">
-                            <h5 class="mb-1">5 Beautiful buildings you need..</h5>
-                            <small>12 Jan, 2016</small>
-                        </div>
-                    </a>
-
-                    <a href="tech-single.html"
-                        class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="w-100 justify-content-between">
-                            <img src="/client/upload/tech_blog_01.jpg" alt="" class="img-fluid float-left">
-                            <h5 class="mb-1">Let's make an introduction for..</h5>
-                            <small>11 Jan, 2016</small>
-                        </div>
-                    </a>
-
-                    <a href="tech-single.html"
-                        class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="w-100 last-item justify-content-between">
-                            <img src="/client/upload/tech_blog_03.jpg" alt="" class="img-fluid float-left">
-                            <h5 class="mb-1">Did you see the most beautiful..</h5>
-                            <small>07 Jan, 2016</small>
+                           
+                            <img src="{{asset($post->image)}}" alt="" class="img-fluid float-left">
+                            <h5 class="mb-1">{{$post->title}}</h5>
+                            <small>{{$post->created_at}}</small>
                         </div>
                     </a>
                 </div>
+                @endforeach
             </div><!-- end blog-list -->
         </div><!-- end widget -->
 
